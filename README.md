@@ -10,4 +10,4 @@ Browse routes on a map in a web page.
 5. Install it `go install`.
 6. Type `revel` and you should see a response.
 
-Set the environment vailables in the `.profile` file. Run the app with `revel run app`
+Set the environment vailables in the `.profile` file. Run the app with `revel run maps`
