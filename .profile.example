@@ -3,3 +3,4 @@
 export GOPATH=`pwd`
 export PATH=$PATH:$GOPATH/bin
 export PORT=9000
+export DATABASE_URL=""
