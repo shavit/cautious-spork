@@ -1,6 +1,18 @@
 package app
 
-import "github.com/revel/revel"
+import (
+	"os"
+	"log"
+	"github.com/revel/revel"
+	"gopkg.in/mgo.v2"
+)
+
+//
+// Global variables
+//
+
+// var DbSession *mgo.Session
+var DB *mgo.Database
 
 func init() {
 	// Filters is the default set of global filters.
@@ -21,7 +33,7 @@ func init() {
 
 	// register startup functions with OnAppStart
 	// ( order dependent )
-	// revel.OnAppStart(InitDB)
+	revel.OnAppStart(InitDB)
 	// revel.OnAppStart(FillCache)
 }
 
@@ -35,4 +47,13 @@ var HeaderFilter = func(c *revel.Controller, fc []revel.Filter) {
 	c.Response.Out.Header().Add("X-Content-Type-Options", "nosniff")
 
 	fc[0](c, fc[1:]) // Execute the next filter stage.
+}
+
+func InitDB(){
+	con, err := mgo.Dial(os.Getenv("MONGO_URL"))
+	if err != nil {
+		log.Fatal("Error establishing a database connection: ", err)
+	}
+
+	DB = con.DB("mountain_views")
 }
