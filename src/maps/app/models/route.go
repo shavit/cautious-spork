@@ -3,6 +3,8 @@ package models
 import (
   "gopkg.in/mgo.v2/bson"
   "time"
+  "log"
+  "maps/app"
 )
 
 type Route struct {
@@ -22,12 +24,9 @@ type Route struct {
   City string `bson:"city" json:"city"`
   State string `bson:"state" json:"state"`
   Country string `bson:"country" json:"country"`
-  Country string `bson:"country" json:"country"`
   Private bool `bson:"private" json:"private"`
   Starred bool `bson:"starred" json:"starred"`
-  Starred bool `bson:"starred" json:"starred"`
   Created time.Time `bson:"created" json:"created"`
-  Updated time.Time `bson:"updated" json:"updated"`
   Updated time.Time `bson:"updated" json:"updated"`
   TotalElevationGain float64 `bson:"totalElevationGain" json:"totalElevationGain"`
   Map string `bson:"map" json:"map"`
@@ -35,4 +34,16 @@ type Route struct {
   AthleteCount int `bson:"athleteCount" json:"athleteCount"`
   Hazardous bool `bson:"hazardous" json:"hazardous"`
   StarCount int `bson:"starCount" json:"starCount"`
+}
+
+func (r *Route) All() (routes []Route){
+  var data []Route
+  var err error
+
+  err = app.DB.C("routes").Find(bson.M{}).All(&data)
+  if err != nil {
+    log.Fatal("Error:", err)
+  }
+
+  return data
 }
