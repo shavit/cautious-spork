@@ -11,9 +11,14 @@ type Routes struct {
 }
 
 func (c Routes) Index() revel.Result {
+  var err error
   var route models.Route
-  log.Println(route)
-  log.Println(route.All())
+  var routes []models.Route
 
-	return c.RenderJson([]byte("{}"))
+  routes, err = route.All()
+  if err != nil {
+    log.Fatal(err)
+  }
+
+	return c.RenderJson(routes)
 }

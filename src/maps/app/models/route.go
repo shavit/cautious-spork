@@ -36,7 +36,7 @@ type Route struct {
   StarCount int `bson:"starCount" json:"starCount"`
 }
 
-func (r *Route) All() (routes []Route){
+func (r *Route) All() (routes []Route, e error){
   var data []Route
   var err error
 
@@ -45,5 +45,5 @@ func (r *Route) All() (routes []Route){
     log.Fatal("Error:", err)
   }
 
-  return data
+  return data, err
 }
