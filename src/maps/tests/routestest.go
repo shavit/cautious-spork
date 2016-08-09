@@ -11,9 +11,9 @@ func (t *RoutesTest) Before() {
 }
 
 func (t *RoutesTest) TestThatIndexPageWorks() {
-	t.Get("/")
+	t.Get("/api/v1/routes")
 	t.AssertOk()
-	t.AssertContentType("text/html; charset=utf-8")
+	t.AssertContentType("application/json; charset=utf-8")
 }
 
 func (t *RoutesTest) After() {
