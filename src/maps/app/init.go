@@ -3,8 +3,11 @@ package app
 import (
 	"os"
 	"log"
+	"time"
 	"github.com/revel/revel"
+	"github.com/revel/modules/jobs/app/jobs"
 	"gopkg.in/mgo.v2"
+	appJobs "maps/app/jobs"
 )
 
 //
@@ -35,6 +38,9 @@ func init() {
 	// ( order dependent )
 	revel.OnAppStart(InitDB)
 	// revel.OnAppStart(FillCache)
+	revel.OnAppStart(func(){
+		jobs.Every(30 * time.Second, appJobs.StorageJob{})
+	})
 }
 
 // TODO turn this into revel.HeaderFilter
