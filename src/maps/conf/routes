@@ -16,5 +16,8 @@ GET     /favicon.ico                            404
 # Map static resources from the /app/public folder to the /public path
 GET     /public/*filepath                       Static.Serve("public")
 
+# Websockets
+WS /api/v1/activities/stream Activities.Stream
+
 # Catch all
 *       /:controller/:action                    :controller.:action
