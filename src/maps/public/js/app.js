@@ -13,11 +13,44 @@ socket.onmessage = function(e){
   onMessage(JSON.parse(e.data))
 }
 
+function displaySegment(segment){
+  var points = [
+    segment.startLatlng,
+    segment.endLatlng,
+  ]
+  L.polyline(points, {
+      color: "yellow"
+    })
+    .addTo(map)
+
+  console.log(segment.startLatlng)
+  console.log(segment.endLatlng)
+}
 
 function displayRoute(streamData){
   latings = streamData[0].data
   distances = streamData[1].data
   altitudes = streamData[2].data
+}
+
+function exploreSegments(){
+  var bounds = map.getBounds()
+  var northEastLat = bounds["_northEast"].lat
+  var northEastLng = bounds["_northEast"].lng
+  var southWestLat = bounds["_southWest"].lat
+  var southWestLng = bounds["_southWest"].lng
+  var url = "/api/v1/segments/explore?bounds=" +
+    southWestLat + "," + southWestLng + "," +
+    northEastLat + "," + northEastLng
+  
+  $.get(url, function(data){
+    var segments = data.Segments
+
+    for (var i=0; i<segments.length; i++){
+      displaySegment(segments[i])
+    }
+  })
+
 }
 
 function loadMap(){
@@ -42,6 +75,8 @@ function loadMap(){
     })
     .addTo(map)
   }
+
+  map.on("moveend", exploreSegments)
 }
 
 //
@@ -59,3 +94,9 @@ $.get(routesURL, function(data) {
   streamData = data.data
   displayRoute(streamData)
 })
+
+
+// Explore routes
+// $.get("/api/v1/segments/explore", function(data){
+//   console.log(data)
+// })

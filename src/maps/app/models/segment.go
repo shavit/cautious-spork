@@ -3,11 +3,13 @@ package models
 import (
   "gopkg.in/mgo.v2/bson"
   "time"
+  "log"
+  "maps/app"
 )
 
 type Segment struct {
   Id bson.ObjectId `bson:"_id" json:"_id"`
-  Uid string `bson:"uid" json:"uid"`
+  Uid int `bson:"uid" json:"id"`
   ResourceState int `bson:"resourceState" json:"resource_state"`
   Name string `bson:"name" json:"name"`
   ActivityType string `bson:"activityType" json:"activityType"`
@@ -16,8 +18,8 @@ type Segment struct {
   MaximumGrade float64 `bson:"maximumGrade" json:"maximum_grade"`
   ElevationHigh float64 `bson:"elevationHigh" json:"elevation_high"`
   ElevationLow float64 `bson:"elevationLow" json:"elevation_low"`
-  StartPoint  []float64 `bson:"startPoint" json:"start_latlng"`
-  EndPoint  []float64 `bson:"endPoint" json:"end_latlng"`
+  StartPoint  []float64 `bson:"startPoint" json:"startLatlng"`
+  EndPoint  []float64 `bson:"endPoint" json:"endLatlng"`
   ClimbCategory int `bson:"climbCategory" json:"climb_category"`
   City string `bson:"city" json:"city"`
   State string `bson:"state" json:"state"`
@@ -33,4 +35,29 @@ type Segment struct {
   AthleteCount int `bson:"athleteCount" json:"athlete_count"`
   Hazardous bool `bson:"hazardous" json:"hazardous"`
   StarCount int `bson:"starCount" json:"star_count"`
+}
+
+func (s *Segment) Save(){
+  var err error
+  var n int
+
+  // Check if the record exists
+  n, err = app.DB.C("segments").Find(bson.M{"uid": s.Uid}).Count()
+  if err != nil {
+    log.Fatal(err)
+  }
+  log.Printf("---> Found %v existing segments\n", n)
+
+  // Insert if the record does not exists
+  if n > 0 {
+    return
+  }
+
+  s.Id = bson.NewObjectId()
+  err = app.DB.C("segments").Insert(&s)
+  if err != nil {
+    log.Fatal(err)
+  }
+  log.Println("----> Inserted segment")
+
 }

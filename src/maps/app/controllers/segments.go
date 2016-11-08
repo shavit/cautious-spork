@@ -20,8 +20,14 @@ func (c Segments) Explore(term string) revel.Result {
   var client *http.Client = &http.Client{}
   var res *http.Response
   var req *http.Request
+  var bounds string = c.Params.Get("bounds")
+  log.Println("Bounds: ", bounds)
 
-  req, err = http.NewRequest("GET", "https://www.strava.com/api/v3/segments/explore?bounds=37.821362,-122.505373,37.842038,-122.465977", nil)
+  // Bounds:
+  //  sw.lat, sw.lng, ne.lat, ne.lng
+  //  south, west, north, east
+  // req, err = http.NewRequest("GET", "https://www.strava.com/api/v3/segments/explore?bounds=37.821362,-122.505373,37.842038,-122.465977", nil)
+  req, err = http.NewRequest("GET", "https://www.strava.com/api/v3/segments/explore?activity_type=running&bounds="+bounds, nil)
   if err != nil {
     log.Fatal(err)
   }
@@ -48,7 +54,10 @@ func (c Segments) Explore(term string) revel.Result {
   }
 
   // Save the data
-  
+  // for _, item := range jsonData.Segments {
+  //   item.Save()
+  // }
+
 
   return c.RenderJson(jsonData)
 }
