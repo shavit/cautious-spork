@@ -30,6 +30,7 @@ type Segment struct {
   Updated time.Time `bson:"updated" json:"updated_at"`
   TotalElevationGain float64 `bson:"totalElevationGain" json:"totalElevationGain"`
   Map string `bson:"map" json:"map"`
+  Path [][]float64 `bson:"path" json:"path"`
   Points string `bson:"points" json:"points"`
   EffortCount int `bson:"effortCount" json:"effort_count"`
   AthleteCount int `bson:"athleteCount" json:"athlete_count"`
@@ -60,16 +61,69 @@ func (s *Segment) Save(){
   if err != nil {
     log.Fatal(err)
   }
+  log.Println("---> Segment count", n, s.Uid)
 
   // Insert if the record does not exists
   if n > 0 {
+    log.Printf("---> Segment %v exists\n", s.Id.Hex())
     return
   }
 
   s.Id = bson.NewObjectId()
+  s.DecodePolyline()
+  log.Println("---> Points ", s.Path)
   err = app.DB.C("segments").Insert(&s)
   if err != nil {
     log.Fatal(err)
   }
 
+}
+
+
+func (s *Segment) DecodePolyline() {
+	var count, index int
+  var f int = 1.0e5
+  var pointLonLat []float64
+  var points [][]float64
+
+	tempLatLng := [2]int{0, 0}
+
+	for index < len(s.Points) {
+		var result int
+		var b = 0x20
+		var shift uint
+
+		for b >= 0x20 {
+			b = int(s.Points[index]) - 63
+			index++
+
+			result |= (b & 0x1f) << shift
+			shift += 5
+		}
+
+		// Sign dection
+		if result&1 != 0 {
+			result = ^(result >> 1)
+		} else {
+			result = result >> 1
+		}
+
+		if count%2 == 0 {
+			result += tempLatLng[0]
+			tempLatLng[0] = result
+		} else {
+			result += tempLatLng[1]
+			tempLatLng[1] = result
+
+		}
+    pointLonLat = append(pointLonLat, float64(tempLatLng[0]) / float64(f))
+    pointLonLat = append(pointLonLat, float64(tempLatLng[1]) / float64(f))
+    points = append(points, pointLonLat)
+    // Clear the pair
+    pointLonLat = nil
+
+		count++
+	}
+
+  s.Path = points
 }

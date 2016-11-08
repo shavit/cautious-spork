@@ -13,18 +13,45 @@ socket.onmessage = function(e){
   onMessage(JSON.parse(e.data))
 }
 
-function displaySegment(segment){
-  var points = [
-    segment.startLatlng,
-    segment.endLatlng,
-  ]
-  L.polyline(points, {
-      color: "yellow"
-    })
-    .addTo(map)
+function loadSegments(){
+  if (!map){
+    var waitForMap = setInterval(function(){
+      if (map){
+        clearInterval(waitForMap)
+        loadSegments()
+      }
+    }, 300)
+  } else {
 
-  console.log(segment.startLatlng)
-  console.log(segment.endLatlng)
+    $.get("/api/v1/segments/index", function(data) {
+      if (data){
+        for (var i=0; i<data.length; i++){
+          displaySegment(data[i])
+        }
+      }
+    })
+
+  }
+
+
+}
+
+function displaySegment(segment){
+  var points = segment.path
+  points.shift()
+  var color = [
+    "yellow",
+    "red",
+    "blue",
+    "green",
+    "brown",
+    "ocean",
+  ][Math.floor(Math.random() * 6) + 1]
+  var polyline = L.polyline(points, {
+      color: color
+    })
+
+  polyline.addTo(map)
 }
 
 function displayRoute(streamData){
@@ -46,9 +73,9 @@ function exploreSegments(){
   $.get(url, function(data){
     var segments = data.Segments
 
-    for (var i=0; i<segments.length; i++){
-      displaySegment(segments[i])
-    }
+    // for (var i=0; i<segments.length; i++){
+    //   displaySegment(segments[i])
+    // }
   })
 
 }
@@ -61,7 +88,7 @@ function loadMap(){
 
     map = L.map("mapView", {
       center: latings[Math.round((latings.length)/2)],
-      zoom: 10
+      zoom: 8
       })
 
     polyline = L
@@ -94,3 +121,5 @@ $.get(routesURL, function(data) {
   streamData = data.data
   displayRoute(streamData)
 })
+
+loadSegments()
