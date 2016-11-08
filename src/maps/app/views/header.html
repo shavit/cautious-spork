@@ -8,13 +8,34 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <!-- <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, target-densitydpi=device-dpi" /> -->
-    <link rel="stylesheet" type="text/css" href="/public/css/bootstrap-3.3.6.min.css">
     <link rel="shortcut icon" type="image/png" href="/public/img/favicon.png">
-    <script src="/public/js/jquery-2.2.4.min.js"></script>
-    <script src="/public/js/bootstrap-3.3.6.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/public/css/bootstrap-3.3.6.min.css">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.indigo-pink.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" />
+    <style type="text/css">
+      main,
+      .page-content {
+        height: calc(100%);
+      }
+      #mapView {
+        background: #efefef;
+        height: 100%;
+        min-height: calc(100%);
+      }
+    </style>
+
     {{range .moreStyles}}
       <link rel="stylesheet" type="text/css" href="/public/{{.}}">
     {{end}}
+    <script src="/public/js/jquery-2.2.4.min.js"></script>
+    <script src="/public/js/bootstrap-3.3.6.min.js"></script>
+
+    <script defer src="https://code.getmdl.io/1.2.1/material.min.js" async="async"></script>
+    <script defer src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js" async="async"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js" async="async"></script>
+
     {{range .moreScripts}}
       <script src="/public/{{.}}" type="text/javascript" charset="utf-8"></script>
     {{end}}

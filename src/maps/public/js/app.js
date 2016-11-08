@@ -11,3 +11,5 @@ var onMessage = function(e){
 socket.onmessage = function(e){
   onMessage(JSON.parse(e.data))
 }
+
+console.log("It works!")
