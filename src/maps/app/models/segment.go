@@ -64,7 +64,6 @@ func (s *Segment) Save(){
 
   // Insert if the record does not exists
   if n > 0 {
-    log.Printf("---> Segment %v exists\n", s.Id.Hex())
     return
   }
 
