@@ -2,7 +2,7 @@
 
 Browse routes on a map in a web page.
 
-![Strava API Explorer](https://github.com/shavit/cautious-spork/doc/screenshot.png?raw=true)
+![Strava API Explorer](https://raw.githubusercontent.com/shavit/cautious-spork/master/doc/screenshot.png)
 
 ## Installation
 1. Make sure you have `$GOPATH` configured in your machine.
