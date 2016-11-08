@@ -28,7 +28,7 @@ func (c Routes) StaticRoutes() revel.Result {
   var err error
   var f *os.File
 
-  f, err = os.Open(revel.BasePath+"/public/js/rouets.json")
+  f, err = os.Open(revel.BasePath+"/public/js/routes.json")
   defer f.Close()
   if err != nil {
     log.Fatal(err)

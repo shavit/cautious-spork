@@ -37,9 +37,9 @@
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js" async="async"></script>
 
     {{range .moreScripts}}
-      <script src="/public/{{.}}" type="text/javascript" charset="utf-8"></script>
+      <script defer src="/public/{{.}}" type="text/javascript" charset="utf-8" async="async"></script>
     {{end}}
-    <script src="/public/js/app.js" type="text/javascript" charset="utf-8"></script>
+    <script defer src="/public/js/app.js" type="text/javascript" charset="utf-8" async="async"></script>
     <!-- <script>require("initialize");</script> -->
   </head>
   <body>

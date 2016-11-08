@@ -8,6 +8,7 @@ module:jobs
 GET     /                                       App.Index
 
 GET     /api/v1/routes                          Routes.Index
+GET     /api/v1/routes/default                  Routes.StaticRoutes
 GET     /api/v1/segments/explore                Segments.Explore
 
 # Ignore favicon requests
