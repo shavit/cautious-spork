@@ -61,7 +61,6 @@ func (s *Segment) Save(){
   if err != nil {
     log.Fatal(err)
   }
-  log.Println("---> Segment count", n, s.Uid)
 
   // Insert if the record does not exists
   if n > 0 {
