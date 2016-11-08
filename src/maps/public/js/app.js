@@ -88,7 +88,7 @@ function loadMap(){
 
     map = L.map("mapView", {
       center: latings[Math.round((latings.length)/2)],
-      zoom: 8
+      zoom: 12
       })
 
     polyline = L

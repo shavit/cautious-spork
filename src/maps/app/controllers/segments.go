@@ -67,7 +67,8 @@ func (c Segments) Explore(term string) revel.Result {
 
   // Save the data
   for _, item := range jsonData.Segments {
-    go item.Save()
+    // go item.Save()
+    item.Save()
   }
 
 
