@@ -30,6 +30,7 @@
     "clean-css-brunch": "^2.0.0",
     "css-brunch": "^2.6.1",
     "javascript-brunch": "^2.0.0",
+    "polyline-encoded": "0.0.8",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
     "react-redux": "^4.4.5",

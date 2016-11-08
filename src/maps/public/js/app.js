@@ -42,7 +42,7 @@ function exploreSegments(){
   var url = "/api/v1/segments/explore?bounds=" +
     southWestLat + "," + southWestLng + "," +
     northEastLat + "," + northEastLng
-  
+
   $.get(url, function(data){
     var segments = data.Segments
 
