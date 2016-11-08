@@ -54,9 +54,9 @@ func (c Segments) Explore(term string) revel.Result {
   }
 
   // Save the data
-  // for _, item := range jsonData.Segments {
-  //   item.Save()
-  // }
+  for _, item := range jsonData.Segments {
+    item.Save()
+  }
 
 
   return c.RenderJson(jsonData)
