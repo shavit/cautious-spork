@@ -2,6 +2,8 @@
 
 Browse routes on a map in a web page.
 
+![Strava API Explorer](https://github.com/shavit/cautious-spork/tree/master/doc/screenshot.png)
+
 ## Installation
 1. Make sure you have `$GOPATH` configured in your machine.
 2. Go to `$GOPATH/src/github.com/robfig`.
