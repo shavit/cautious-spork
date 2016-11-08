@@ -3,6 +3,7 @@ package controllers
 import (
   "github.com/revel/revel"
   "log"
+  "os"
   "maps/app/models"
 )
 
@@ -21,4 +22,17 @@ func (c Routes) Index() revel.Result {
   }
 
 	return c.RenderJson(routes)
+}
+
+func (c Routes) StaticRoutes() revel.Result {
+  var err error
+  var f *os.File
+
+  f, err = os.Open(revel.BasePath+"/public/js/rouets.json")
+  defer f.Close()
+  if err != nil {
+    log.Fatal(err)
+  }
+
+  return c.RenderFile(f, revel.Attachment)
 }

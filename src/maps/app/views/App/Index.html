@@ -1,21 +1,32 @@
 {{set . "title" "Home"}}
 {{template "header.html" .}}
 
-<header class="jumbotron" style="background-color:#A9F16C">
-  <div class="container">
-    <div class="row">
-      <h1>It works!</h1>
-      <p></p>
-    </div>
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer">
+  <div class="mdl-layout__drawer">
+    <span class="mdl-layout-title">Map view</span>
+    <nav class="mdl-navigation">
+      <a class="mdl-navigation__link" href="">Create</a>
+      <a class="mdl-navigation__link" href="">Search</a>
+      <a class="mdl-navigation__link" href="">API</a>
+    </nav>
   </div>
-</header>
-
-<div class="container">
-  <div class="row">
-    <div class="span6">
-      {{template "flash.html" .}}
+  <main class="mdl-layout__content">
+    <div class="page-content">
+      <div id="mapView">
+        <div class="mdl-grid">
+          <div class="mdl-cell mdl-cell--4-col"></div>
+          <div class="mdl-cell mdl-cell--4-col mdl-cell--stretch">
+            <br  />
+            <p class="preloader mdl-progress mdl-js-progress mdl-progress__indeterminate">
+              <small>Loading map</small>
+            </p>
+          </div>
+          <div class="mdl-cell mdl-cell--4-col"></div>
+        </div>
+      </div>
     </div>
-  </div>
+  </main>
 </div>
+
 
 {{template "footer.html" .}}
