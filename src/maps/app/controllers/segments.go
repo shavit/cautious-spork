@@ -70,6 +70,8 @@ func (c Segments) Explore(term string) revel.Result {
   for _, item := range jsonData.Segments {
     item.Save()
   }
+  log.Println(jsonData.Segments[0])
+  log.Println(string(data))
 
 
   return c.RenderJson(jsonData)
