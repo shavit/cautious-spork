@@ -14,6 +14,19 @@ type Segments struct {
 	*revel.Controller
 }
 
+func (c Segments) Index() revel.Result {
+  var err error
+  var segment *models.Segment
+  var segments []models.Segment
+
+  segments, err = segment.All()
+  if err != nil {
+    log.Fatal(err)
+  }
+
+  return c.RenderJson(segments)
+}
+
 func (c Segments) Explore(term string) revel.Result {
   var err error
   var accessToken string = os.Getenv("STRAVA_ACCESS_TOKEN")

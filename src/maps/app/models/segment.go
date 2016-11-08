@@ -37,6 +37,20 @@ type Segment struct {
   StarCount int `bson:"starCount" json:"star_count"`
 }
 
+
+func (s *Segment) All() (segments []Segment, e error){
+  var data []Segment
+  var err error
+
+  err = app.DB.C("segments").Find(bson.M{}).All(&data)
+  if err != nil {
+    log.Fatal("Error:", err)
+  }
+
+  return data, err
+}
+
+
 func (s *Segment) Save(){
   var err error
   var n int
