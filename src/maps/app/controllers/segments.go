@@ -34,7 +34,6 @@ func (c Segments) Explore(term string) revel.Result {
   var res *http.Response
   var req *http.Request
   var bounds string = c.Params.Get("bounds")
-  log.Println("Bounds: ", bounds)
 
   // Bounds:
   //  sw.lat, sw.lng, ne.lat, ne.lng
