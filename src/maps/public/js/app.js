@@ -13,6 +13,12 @@ socket.onmessage = function(e){
   onMessage(JSON.parse(e.data))
 }
 
+function selectSegment(id){
+  var center = segments[id].path[Math.round((segments[id].path.length)/2)]
+  // map.setView(center, map._zoom, {})
+  map.setView(center, 12, {})
+}
+
 function loadSegments(){
   if (!map){
     var waitForMap = setInterval(function(){
@@ -25,8 +31,19 @@ function loadSegments(){
 
     $.get("/api/v1/segments/index", function(data) {
       if (data){
+        var ids = new Array()
+
+        $segmentList =  $(".segment-list")
         for (var i=0; i<data.length; i++){
-          displaySegment(data[i])
+          // Check if the segment already in the view
+          if (ids.indexOf(data[i].id) < 0){
+            ids.push(data[i].id)
+            segments[data[i].id] = data[i]
+            displaySegment(data[i])
+            $segment = $("<li class=\"mdl-list__item\" data-id=\""+data[i].id+"\" onclick=\"selectSegment("+data[i].id+")\" />")
+            $segment.text(data[i].name)
+            $segmentList.append($segment)
+          }
         }
       }
     })
@@ -106,6 +123,7 @@ function loadMap(){
   map.on("moveend", exploreSegments)
 }
 
+
 //
 //  Run
 //
@@ -115,6 +133,7 @@ var latings
 var distances
 var altitudes
 var waitForLInterval = setInterval(loadMap, 300)
+var segments = new Array()
 
 var routesURL = "/public/js/routes.json"
 $.get(routesURL, function(data) {
