@@ -60,7 +60,6 @@ func (s *Segment) Save(){
   if err != nil {
     log.Fatal(err)
   }
-  log.Printf("---> Found %v existing segments\n", n)
 
   // Insert if the record does not exists
   if n > 0 {
@@ -72,6 +71,5 @@ func (s *Segment) Save(){
   if err != nil {
     log.Fatal(err)
   }
-  log.Println("----> Inserted segment")
 
 }
