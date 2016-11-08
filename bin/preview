@@ -2,3 +2,4 @@
 
 echo "---> Generating gif preview"
 ffmpeg -i tmp/map_demo.mov -y  -vf fps=10,scale=720:-1 -t 4 doc/maps.gif
+echo "---> Done"
