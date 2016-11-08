@@ -94,9 +94,3 @@ $.get(routesURL, function(data) {
   streamData = data.data
   displayRoute(streamData)
 })
-
-
-// Explore routes
-// $.get("/api/v1/segments/explore", function(data){
-//   console.log(data)
-// })
