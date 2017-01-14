@@ -13,6 +13,8 @@ GET     /api/v1/routes/default                  Routes.StaticRoutes
 GET     /api/v1/segments/index                  Segments.Index
 GET     /api/v1/segments/explore                Segments.Explore
 
+POST    /api/v1/users/login                      Users.Login
+
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
